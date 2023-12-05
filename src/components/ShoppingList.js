@@ -5,22 +5,20 @@ function ShoppingList({ items }) {
   
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  // const [filtered, setFiltered] = useState([])
+  const [filtered, setFiltered] = useState(items)
 
   function handleChange(e){
     const value = e.target.value;
+
     setSelectedCategory(value);
-
-    console.log(selectedCategory)
     
-    // const filterBy = items.filter(items => items.category === selectedCategory);
-
-    // console.log(filterBy);
-
-    // setFiltered(filterBy);
+    // console.log(selectedCategory)
+    // const filterdList = items.filter(items => items.category === selectedCategory);
+    const filterdList = items.filter(items => items.category === value);
+    const list = value === "All" ? items : filterdList;
+    // console.log(list)
+    setFiltered(list);
   }
-
-
 
   return (
     <div className="ShoppingList">
@@ -33,7 +31,7 @@ function ShoppingList({ items }) {
         </select>
       </div>
       <ul className="Items">
-        {items.map((item) => (
+        {filtered.map((item) => (
           <Item key={item.id} name={item.name} category={item.category} />
         ))}
       </ul>
